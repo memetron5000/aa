@@ -274,6 +274,14 @@ def gerente_crear_envio(frame2):
         image=entry_image_7
     )#Cuadro que ingresa el ID del envio nuevo
 
+    en=canvas.create_text(
+        670.0,
+        512.0,
+        anchor="center",
+        text="",
+        fill="#000000",
+        font=("MicrosoftSansSerif", 20 * -1)
+    )
     #!funcion que registra pedido
     def r_pedido():
         identificador_cliente = entry_1.get()
@@ -293,14 +301,7 @@ def gerente_crear_envio(frame2):
                     messagebox.showerror(title=None, message="El formato de la fecha esta incorrecto\n debe ser (YYYY-MM-DD HH:MM)\n ejemplo 2004-11-27 12:21",)
             
             id_job = metodos.sistema.crear_envio(guia_aerea, cliente, tipo_producto, destino, temperatura, hora_entrega)
-            canvas.create_text(
-                670.0,
-                512.0,
-                anchor="center",
-                text=id_job,
-                fill="#000000",
-                font=("MicrosoftSansSerif", 20 * -1)
-                )
+            canvas.itemconfig(en, text=id_job)
             messagebox.showinfo(title=None, message="Pedido creado con exito")
         else:
             messagebox.showwarning(title=None, message="cliente no encontrado")

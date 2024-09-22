@@ -1,10 +1,10 @@
 
 
-import gui15,gui16
+import gui15,gui16, metodos
 from pathlib import Path
 
 
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
 
 # limpia el frame para poder actualizar la ventana
 def titulo(frame4):
@@ -95,6 +95,22 @@ def conductor_ver(frame4):
         height=33.0
     )
 
+    #!buscar envio
+    def bus_pedido():
+        id_job = entry_1.get()
+        if id_job not in metodos.sistema.envios:
+            messagebox.showwarning(title=None, message=f"No se ha encontrado ningún envío con el id {id_job}")
+        if id_job in metodos.sistema.envios:
+            envio = metodos.sistema.envios[id_job]
+            canvas.itemconfig(guia_text, text=envio.guia_aerea)
+            canvas.itemconfig(cliente_text, text=envio.cliente.nombre)
+            canvas.itemconfig(tipo_text, text=envio.tipo_producto)
+            canvas.itemconfig(dest_text, text=envio.destino)
+            canvas.itemconfig(est_text, text=envio.estado_actual.value)
+            canvas.itemconfig(temp_text, text=envio.temperatura)
+            canvas.itemconfig(hora_text, text=envio.hora_entrega)
+            canvas.itemconfig(ubi_text, text=envio.ubicacion_actual)
+    
     #boton
     button_image_1 = PhotoImage(
         file=relative_to_assets("button_1.png"))
@@ -103,7 +119,7 @@ def conductor_ver(frame4):
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("Buscar"),
+        command=lambda: bus_pedido(),
         relief="flat"
     )#Boton para buscar el ID especificado en el cuadro anterior
     button_1.place(
@@ -133,14 +149,14 @@ def conductor_ver(frame4):
         font=("MicrosoftSansSerif", 20 * -1)
     )
 
-    #texto
-    canvas.create_text(
+    #?texto guia aerea
+    guia_text=canvas.create_text(
         621.0,
         213.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -153,14 +169,14 @@ def conductor_ver(frame4):
         font=("MicrosoftSansSerif", 20 * -1)
     )
 
-    #texto
-    canvas.create_text(
+    #?texto cliente
+    cliente_text=canvas.create_text(
         621.0,
         253.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -173,14 +189,14 @@ def conductor_ver(frame4):
         font=("MicrosoftSansSerif", 20 * -1)
     )
 
-    #texto
-    canvas.create_text(
+    #?texto tipo producto
+    tipo_text=canvas.create_text(
         621.0,
         293.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -193,14 +209,14 @@ def conductor_ver(frame4):
         font=("MicrosoftSansSerif", 20 * -1)
     )
 
-    #texto
-    canvas.create_text(
+    #?texto Destino
+    dest_text = canvas.create_text(
         621.0,
         335.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -213,14 +229,14 @@ def conductor_ver(frame4):
         font=("MicrosoftSansSerif", 20 * -1)
     )
 
-    #texto
-    canvas.create_text(
+    #?texto estado del envio
+    est_text = canvas.create_text(
         621.0,
         376.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -233,14 +249,14 @@ def conductor_ver(frame4):
         font=("MicrosoftSansSerif", 20 * -1)
     )
 
-    #texto
-    canvas.create_text(
+    #?texto temperatura
+    temp_text = canvas.create_text(
         621.0,
         417.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -253,14 +269,14 @@ def conductor_ver(frame4):
         font=("MicrosoftSansSerif", 20 * -1)
     )
 
-    #texto
-    canvas.create_text(
+    #?texto de hora de entrega
+    hora_text = canvas.create_text(
         621.0,
         456.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -273,14 +289,14 @@ def conductor_ver(frame4):
         font=("MicrosoftSansSerif", 20 * -1)
     )
 
-    #texto
-    canvas.create_text(
+    #?texto de ubicacion
+    ubi_text = canvas.create_text(
         621.0,
         496.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #boton

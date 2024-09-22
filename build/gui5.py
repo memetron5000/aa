@@ -133,7 +133,7 @@ def logistica_edit_estado(frame1):
     )
 
     
-    #? combobox que 
+    #? combobox que crea la lista con los estados de envi
     combo = ttk.Combobox(frame1, state= "readonly",values=["EN_REPARTO_AEREO","VIAJANDO_A_TU_DESTINO","EN_CENTRO_LOGISTICO","EN_CAMINO_HACIA_TI","ENTREGADO","EN_RETRASO"])
     combo.place(x=600.0, y=257.0)
     width=50

@@ -118,7 +118,7 @@ def logistica_ver(frame1):
     def bus_pedido():
         id_job = entry_1.get()
         if id_job not in metodos.sistema.envios:
-            messagebox.showwarning(title=None, message=f"No se ha encontrado ningún envío con el {id_job}")
+            messagebox.showwarning(title=None, message=f"No se ha encontrado ningún envío con el id {id_job}")
         if id_job in metodos.sistema.envios:
             envio = metodos.sistema.envios[id_job]
             canvas.itemconfig(guia_text, text=envio.guia_aerea)
