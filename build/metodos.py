@@ -17,7 +17,7 @@ class Rol(Enum):
     PERSONAL_LOGISTICA = "Personal de logística"
     GERENTE_COMERCIAL = "Gerente Comercial"
     DESTINATARIO = "Destinatario"
-    CONDUCTOR = "Conductor"
+    CONDUCTOR = "Transportista"
     CLIENTE = "Cliente"
     QUIMICO = "Químico"
 

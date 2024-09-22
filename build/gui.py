@@ -1,5 +1,5 @@
     
-import gui1,  gui6,    gui10,     gui13,       gui17     ,gui22      ,metodos
+import gui1,  gui6,    gui10,     gui13,       gui17     ,gui22      ,metodos, novedades
     #(Logis)(Gerente)(Quimico)(Transportista)(Cliente)(destinatario)
 
 from pathlib import Path

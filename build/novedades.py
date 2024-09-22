@@ -7,59 +7,79 @@ from pathlib import Path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, ttk,BOTH,Toplevel,Frame
 
 
-OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\santiago\Desktop\is\aa\build\assets\frame21")
+def novedades():
+    ##
+    global entry_image_3,entry_image_1
+    try:
+        ruta_escritorio = Path.home() / "Desktop"
+        ruta_completa = ruta_escritorio / "proyecto" / "build" / "assets"/"novedades"
+        
+    except Exception as e:
+        print(f"Error al obtener la ruta del escritorio: {e}")
+    OUTPUT_PATH = Path(__file__).parent
+    ASSETS_PATH = OUTPUT_PATH / Path(ruta_completa)
+
+    def relative_to_assets(path: str) -> Path:
+        return ASSETS_PATH / Path(path)
 
 
-def relative_to_assets(path: str) -> Path:
-    return ASSETS_PATH / Path(path)
+    #creacion de ventana y frame de logistica
+    window7 = Toplevel()
+    frame7 = Frame(window7)
+    window7.title ("YOURWAY TRANSPORT Logistica")
+    window7.iconbitmap(relative_to_assets("icon.ico"))
+    frame7.pack(fill=BOTH,expand=True)
+    window7.geometry("500x500")
+    window7.configure(bg = "#FFFFFF")
 
+    canvas = Canvas(
+        window7,
+        bg = "#FFFFFF",
+        height = 500,
+        width = 500,
+        bd = 0,
+        highlightthickness = 0,
+        relief = "ridge"
+    )
 
-window = Tk()
+    canvas.place(x = 0, y = 0)
+    canvas.create_text(
+        50.0,
+        48.0,
+        anchor="nw",
+        text="Ubicacion del\naccidente",
+        fill="#000000",
+        font=("MicrosoftSansSerif", 20 * -1)
+    )
+    entry_image_1 = PhotoImage(
+            file=relative_to_assets("entry_1.png"))
+    entry_bg_1 = canvas.create_image(
+        320.0,
+        70.5,
+        image=entry_image_1
+    )
+    canvas.create_text(
+        50.0,
+        160.0,
+        anchor="nw",
+        text="novedad",
+        fill="#000000",
+        font=("MicrosoftSansSerif", 20 * -1)
+    )
+    
+    entry_image_3 = PhotoImage(
+        file=relative_to_assets("entry_3.png"))
+    entry_bg_3 = canvas.create_image(
+        320.0,
+        230.0,
+        image=entry_image_3
+    )
+    
+   
 
-window.geometry("400x400")
-window.configure(bg = "#FFFFFF")
-
-
-canvas = Canvas(
-    window,
-    bg = "#FFFFFF",
-    height = 400,
-    width = 400,
-    bd = 0,
-    highlightthickness = 0,
-    relief = "ridge"
-)
-
-canvas.place(x = 0, y = 0)
-canvas.create_text(
-    23.0,
-    48.0,
-    anchor="nw",
-    text="Ubicacion del\naccidente",
-    fill="#000000",
-    font=("MicrosoftSansSerif", 20 * -1)
-)
-
-canvas.create_text(
-    45.0,
-    160.0,
-    anchor="nw",
-    text="novedad",
-    fill="#000000",
-    font=("MicrosoftSansSerif", 20 * -1)
-)
-
-canvas.create_text(
-    47.0,
-    270.0,
-    anchor="nw",
-    text="Detalles",
-    fill="#000000",
-    font=("MicrosoftSansSerif", 20 * -1)
-)
-window.resizable(False, False)
-window.mainloop()
+    
+    window7.resizable(False, False)
+    window7.mainloop()

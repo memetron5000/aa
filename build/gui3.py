@@ -14,7 +14,7 @@ def titulo(frame1):
         
 # ventana de ver logistica
 def logistica_ver(frame1):
-    global button_image_1, button_image_2, button_image_3, button_image_4,button_image_5,entry_image_1,image_image_1
+    global button_image_1, button_image_2, button_image_3, button_image_4,button_image_5, button_image_6, entry_image_1,image_image_1
     
     #limpia el frame
     titulo(frame1)
@@ -297,6 +297,28 @@ def logistica_ver(frame1):
         text="+++",
         fill="#000000",
         font=("MicrosoftSansSerif", 13 * -1)
+    )
+    
+    
+    #!funcion que abre las novedades
+    def novedades():
+        ""
+    #?boton que llama la ventana de novedades (accidente reportado por conductor)
+    button_image_6 = PhotoImage(
+        file=relative_to_assets("button_6.png"))
+    button_6 = Button(
+        frame1,
+        image=button_image_6,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: "",
+        relief="flat"
+    )
+    button_6.place(
+        x=14.0,
+        y=58.0,
+        width=158.0,
+        height=56.0
     )
 
     #boton

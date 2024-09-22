@@ -1,4 +1,4 @@
-import gui
+import gui, novedades
 from pathlib import Path
 
 
