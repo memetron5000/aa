@@ -143,5 +143,17 @@ class SistemaSeguimiento:
 
 
         return "Envío no encontrado"
+    
+    def obtener_estado_job(self, id_job):
+        if id_job in self.envios:
+            envio = self.envios[id_job]
+            if envio.accidente == None:
+                return envio.estado_actual.value
+            else:
+                return envio.estado_actual.value
+
+
+        return "Envío no encontrado"
+    
 
 sistema=SistemaSeguimiento()

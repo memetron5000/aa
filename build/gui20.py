@@ -4,8 +4,8 @@
 from pathlib import Path
 
 
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-import gui18, gui19
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox, ttk
+import gui18, gui19, metodos
 
 # limpia el frame para poder actualizar la ventana
 def titulo(frame5):
@@ -15,7 +15,7 @@ def titulo(frame5):
 
 #creacion de todos los elementos de la ventana y acceso a ruta completa     
 def cliente_ver_historial(frame5):
-    global button_image_1, button_image_2, button_image_3, button_image_4,entry_image_1,image_image_1
+    global button_image_1, button_image_2, button_image_3, button_image_4,button_image_5, entry_image_1, image_image_1
     
     # Limpia el frame
     titulo(frame5)
@@ -66,8 +66,8 @@ def cliente_ver_historial(frame5):
 
     #texto
     canvas.create_text(
-        225.0,
-        132.0,
+        250.0,
+        232.0,
         anchor="nw",
         text="Ver historial del pedido",
         fill="#000000",
@@ -76,10 +76,57 @@ def cliente_ver_historial(frame5):
 
     #texto
     canvas.create_text(
-        249.0,
-        177.0,
+        250.0,
+        111.0,
         anchor="nw",
-        text="Ingrese identificador del pedido:",
+        text="Ingrese el ID del cliente:",
+        fill="#000000",
+        font=("MicrosoftSansSerif", 20 * -1)
+    )
+    
+    #! funcion que verifica los pedidos del cliente y los enlista
+    def pedidos():
+        identificador = entry_1.get()
+        if identificador in metodos.sistema.clientes:
+            cliente=metodos.sistema.clientes[identificador]
+            if cliente.envios:
+                cli=[]
+                for envio in cliente.envios:
+                    cli.append(metodos.sistema.obtener_info_job(envio.id_job))
+            else:
+                messagebox.showinfo(title=None, message="no tiene pedidos registrados")
+        else:
+            messagebox.showwarning(title=None, message="cliente no encontrado")
+        global combo
+        combo = ttk.Combobox(frame5,state="readonly", values=cli)
+        combo.place(x=556.0, y=175.0)
+    
+    
+    #?boton que busca los pedidos del cliente
+    button_image_5 = PhotoImage(
+        file=relative_to_assets("button_5.png"))
+    button_5 = Button(
+        frame5,
+        image=button_image_5,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: pedidos(),
+        relief="flat"
+    )#Boton para buscar el envio con el ID especificado
+    button_5.place(
+        x=729.0,
+        y=101.0,
+        width=50.0,
+        height=45.0
+    )
+    
+    
+    #texto
+    canvas.create_text(
+        250.0,
+        171.0,
+        anchor="nw",
+        text="Ingrese el ID del envío a ver:",
         fill="#000000",
         font=("MicrosoftSansSerif", 20 * -1)
     )
@@ -88,10 +135,10 @@ def cliente_ver_historial(frame5):
     entry_image_1 = PhotoImage(
         file=relative_to_assets("entry_1.png"))
     entry_bg_1 = canvas.create_image(
-        649.0,
-        190.5,
+        631.0,
+        125.5,
         image=entry_image_1
-    )#Cuadro donde se pone el ID del envio a ver su historial
+    )#Cuadro donde se ingresa ID del envio a ver
     entry_1 = Entry(
         frame5,
         bd=0,
@@ -100,13 +147,18 @@ def cliente_ver_historial(frame5):
         highlightthickness=0
     )
     entry_1.place(
-        x=582.0,
-        y=173.0,
+        x=564.0,
+        y=108.0,
         width=134.0,
         height=33.0
     )
 
-    #boton
+    #!buscar historial envio
+    def bus_his_pedido():
+        id_job = combo.get()
+        canvas.itemconfig(estado, text=metodos.sistema.obtener_historial_envio(id_job))
+    
+    #?boton que busca estado del envio
     button_image_1 = PhotoImage(
         file=relative_to_assets("button_1.png"))
     button_1 = Button(
@@ -114,14 +166,25 @@ def cliente_ver_historial(frame5):
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("Buscar"),
+        command=lambda: bus_his_pedido(),
         relief="flat"
-    )#Boton para ver el historial del pedido indicado en el cuadro anterior
+    )#Boton para buscar el envio con el ID especificado
     button_1.place(
-        x=735.0,
-        y=168.0,
+        x=729.0,
+        y=163.0,
         width=50.0,
         height=45.0
+    )
+
+
+    #?texto historial de envio
+    estado=canvas.create_text(
+        500.0,
+        350.0,
+        anchor="center",
+        text="",
+        fill="#000000",
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #boton
