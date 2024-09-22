@@ -5,8 +5,8 @@
 from pathlib import Path
 
 
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-import gui18, gui20
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage,ttk,messagebox,message
+import gui18, gui20,metodos
 
 # limpia el frame para poder actualizar la ventana
 def titulo(frame5):

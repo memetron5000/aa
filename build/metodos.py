@@ -133,6 +133,15 @@ class SistemaSeguimiento:
             return "\n".join(historial)
         return "Envío no encontrado"
 
+    def obtener_info_job(self, id_job):
+        if id_job in self.envios:
+            envio = self.envios[id_job]
+            if envio.accidente == None:
+                return envio.id_job
+            else:
+                return envio.id_job
 
+
+        return "Envío no encontrado"
 
 sistema=SistemaSeguimiento()

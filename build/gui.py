@@ -162,7 +162,7 @@ def login():
     combo = ttk.Combobox(state="readonly", values=[rol.value for rol in metodos.Rol])
     combo.place(x=52.0, y=390.0)
     combo.bind("<<ComboboxSelected>>", update_available_text)
- 
+
 
     #obtiene valor de usuario de combobox 
     def seleccion():
