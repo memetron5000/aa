@@ -5,7 +5,7 @@ import gui2, gui3,gui5, metodos
 from pathlib import Path
 
 
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage,ttk
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage,ttk, messagebox
 
 
 def titulo(frame1):
@@ -126,6 +126,7 @@ def logistica_asignar_empleado(frame1):
         metodos.sistema.agregar_usuario(nuevo_usuario)
         entry_1.delete(0, 'end')
         combo.set("")
+        messagebox.showinfo(title=None, message="Nuevo usuario creado correctamente")
 
     #boton que agrega al usuario
     button_image_1 = PhotoImage(

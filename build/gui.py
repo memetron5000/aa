@@ -169,11 +169,11 @@ def login():
         print (combo.get())
         if (combo.get()==metodos.Rol.PERSONAL_LOGISTICA.value):
             gui1.logistica()
-        elif(combo.get()==metodos.Rol.GERENTE_COMERCIAL.value):
+        elif(combo.get()==metodos.Rol.GERENTE_COMERCIAL.value and combo1.get()!=""):
             gui6.gerente()
-        elif(combo.get()==metodos.Rol.QUIMICO.value):
+        elif(combo.get()==metodos.Rol.QUIMICO.value and combo1.get()!=""):
             gui10.quimico()
-        elif(combo.get()==metodos.Rol.CONDUCTOR.value):
+        elif(combo.get()==metodos.Rol.CONDUCTOR.value and combo1.get()!=""):
             gui13.conductor()
         elif(combo.get()==metodos.Rol.CLIENTE.value):
             gui17.cliente()
