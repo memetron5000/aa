@@ -1,17 +1,19 @@
 
 
+from tkinter import ttk
 import datetime
 from enum import Enum
 
-class EstadoEnvio(Enum): #los estados de envio que se usaran y visualizaran en la interfaz
+class EstadoEnvio(Enum):
     RECIBIDO = "Recibimos tu envío"
     EN_REPARTO_AEREO = "En reparto aéreo"
     VIAJANDO_A_TU_DESTINO = "Viajando a tu destino"
     EN_CENTRO_LOGISTICO = "En centro logístico (bodega)"
     EN_CAMINO_HACIA_TI = "En camino hacia ti"
     ENTREGADO = "Entregado"
+    EN_RETRASO="En retraso"
 
-class Rol(Enum): #los actores del proceso
+class Rol(Enum):
     PERSONAL_LOGISTICA = "Personal de logística"
     GERENTE_COMERCIAL = "Gerente Comercial"
     DESTINATARIO = "Destinatario"
@@ -19,30 +21,30 @@ class Rol(Enum): #los actores del proceso
     CLIENTE = "Cliente"
     QUIMICO = "Químico"
 
-class Usuario: #Se define la clase padre Rol
+class Usuario:
     def __init__(self, nombre, rol):
         self.nombre = nombre
         self.rol = rol
 
-class Cliente(Usuario): #Clase cliente de tipo usuario
+class Cliente(Usuario):
     def __init__(self, nombre, identificador):
         super().__init__(nombre, Rol.CLIENTE)
         self.identificador = identificador
         self.envios = []
 
-class Transportista(Usuario): #Clase transportista de tipo usuario
+class Transportista(Usuario):
     def __init__(self, nombre):
         super().__init__(nombre, Rol.CONDUCTOR)
 
-class Quimico(Usuario): #Clase quimico de tipo usuario
+class Quimico(Usuario):
     def __init__(self, nombre):
         super().__init__(nombre, Rol.QUIMICO)
 
-class GerenteComercial(Usuario): #Clase gerente comercial de tipo usuario
+class GerenteComercial(Usuario):
     def __init__(self, nombre):
         super().__init__(nombre, Rol.GERENTE_COMERCIAL)
 
-class CambioEstado: #clase que indica el estado actual del envio
+class CambioEstado:
     def __init__(self, estado, fecha, ubicacion):
         self.estado = estado
         self.fecha = fecha
@@ -67,8 +69,10 @@ class Envio:
         self.estado_actual = nuevo_estado
         self.ubicacion_actual = ubicacion
         self.historial_estados.append(CambioEstado(nuevo_estado, datetime.datetime.now(), ubicacion))
-    
 
+    #NO SE ESTÁ USANDO
+    #def asignar_transportista(self, transportista):
+     #   self.transportista = transportista
 
 class SistemaSeguimiento:
     def __init__(self):
@@ -128,3 +132,7 @@ class SistemaSeguimiento:
             historial = [f"{cambio.fecha} - {cambio.estado.value} en {cambio.ubicacion}" for cambio in envio.historial_estados]
             return "\n".join(historial)
         return "Envío no encontrado"
+
+
+
+sistema=SistemaSeguimiento()

@@ -1,11 +1,11 @@
 
 
 
-import gui2, gui3,gui5
+import gui2, gui3,gui5, metodos
 from pathlib import Path
 
 
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage,ttk
 
 
 def titulo(frame1):
@@ -104,8 +104,30 @@ def logistica_asignar_empleado(frame1):
         fill="#000000",
         font=("MicrosoftSansSerif", 20 * -1)
     )
+    
+    #combobox de opciones de usuarios
+    combo = ttk.Combobox(frame1,state= "readonly",values=[metodos.Rol.GERENTE_COMERCIAL.value, metodos.Rol.QUIMICO.value, metodos.Rol.CONDUCTOR.value])
+    combo.place(x=610.0, y=196.0)
+    width=50
+    
+    #funcion que verifica el rol y agrega el usuario
+    def agre_user():
+        nombre = entry_1.get()
+        rol = combo.get()
+        if rol == metodos.Rol.GERENTE_COMERCIAL.value:
+            nuevo_usuario = metodos.GerenteComercial(nombre)
+        elif rol == metodos.Rol.QUIMICO.value:
+            nuevo_usuario = metodos.Quimico(nombre)
+        elif rol == metodos.Rol.CONDUCTOR.value:
+            nuevo_usuario = metodos.Transportista(nombre)
+        else:
+            print("Rol no válido")
+            return
+        metodos.sistema.agregar_usuario(nuevo_usuario)
+        entry_1.delete(0, 'end')
+        combo.set("")
 
-    #boton
+    #boton que agrega al usuario
     button_image_1 = PhotoImage(
         file=relative_to_assets("button_1.png"))
     button_1 = Button(
@@ -113,7 +135,7 @@ def logistica_asignar_empleado(frame1):
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        command=lambda: agre_user(),
         relief="flat"
     )
     button_1.place(
@@ -153,7 +175,7 @@ def logistica_asignar_empleado(frame1):
         relief="flat"
     )
     button_3.place(
-        x=13.0,
+        x=14.0,
         y=149.0,
         width=159.0,
         height=56.0

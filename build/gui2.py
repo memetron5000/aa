@@ -1,10 +1,10 @@
 
 #clases hijas de logistica
-import gui3,gui4,gui5
+import gui3,gui4,gui5, metodos
 from pathlib import Path
+import datetime
 
-
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
 
 #limpieza de frame de logistica
 def titulo(frame1):
@@ -104,7 +104,7 @@ def logistica_modificar(frame1):
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("buscar"),
+        command=lambda: bus_pedido(),
         relief="flat"
     )
     button_1.place(
@@ -113,6 +113,23 @@ def logistica_modificar(frame1):
         width=50.0,
         height=45.0
     )
+    
+    #!buscar envio
+    def bus_pedido():
+        id_job = entry_1.get()
+        if id_job not in metodos.sistema.envios:
+            messagebox.showwarning(title=None, message=f"No se ha encontrado ningún envío con el {id_job}")
+        if id_job in metodos.sistema.envios:
+            envio = metodos.sistema.envios[id_job]
+            print("Datos actuales del envío:")
+            entry_2.insert(0, envio.guia_aerea)
+            canvas.itemconfig(cli, text=envio.cliente.nombre)
+            entry_4.insert(0, envio.tipo_producto)
+            entry_5.insert(0, envio.destino)
+            canvas.itemconfig(estado, text=envio.estado_actual.value)
+            entry_7.insert(0, envio.temperatura)
+            entry_8.insert(0, envio.hora_entrega)
+            entry_9.insert(0, envio.ubicacion_actual)
 
     #texto
     canvas.create_text(
@@ -165,27 +182,16 @@ def logistica_modificar(frame1):
         font=("MicrosoftSansSerif", 20 * -1)
     )
 
-    #cuadro de texto rellenable
-    entry_image_3 = PhotoImage(
-        file=relative_to_assets("entry_3.png"))
-    entry_bg_3 = canvas.create_image(
-        626.0,
+    #?texto cliente
+    cli=canvas.create_text(
+        629.0,
         263.5,
-        image=entry_image_3
+        anchor="nw",
+        text="",
+        fill="#000000",
+        font=("MicrosoftSansSerif", 13 * -1)
     )
-    entry_3 = Entry(
-        frame1,
-        bd=0,
-        bg="#D9D9D9",
-        fg="#000716",
-        highlightthickness=0
-    )
-    entry_3.place(
-        x=510.0,
-        y=251.0,
-        width=232.0,
-        height=23.0
-    )
+    
 
     #texto
     canvas.create_text(
@@ -260,28 +266,17 @@ def logistica_modificar(frame1):
         fill="#000000",
         font=("MicrosoftSansSerif", 20 * -1)
     )
-
-    #cuadro de texto rellenable
-    entry_image_6 = PhotoImage(
-        file=relative_to_assets("entry_6.png"))
-    entry_bg_6 = canvas.create_image(
+    
+    estado=canvas.create_text(
         628.0,
         387.5,
-        image=entry_image_6
+        anchor="center",
+        text="",
+        fill="#000000",
+        font=("MicrosoftSansSerif", 13 * -1)
     )
-    entry_6 = Entry(
-        frame1,
-        bd=0,
-        bg="#D9D9D9",
-        fg="#000716",
-        highlightthickness=0
-    )
-    entry_6.place(
-        x=512.0,
-        y=375.0,
-        width=232.0,
-        height=23.0
-    )
+
+    
 
     #texto
     canvas.create_text(
@@ -379,7 +374,35 @@ def logistica_modificar(frame1):
         height=23.0
     )
 
-    #boton de subir
+    #! subir al sistema los nuevos cambios en los detalles del pedido
+    def sub_cambios():
+        id_job=entry_1.get()
+        if id_job not in metodos.sistema.envios:
+            messagebox.showwarning(title=None, message=f'No se ha encontrado ningún envío con el {id_job}')
+        if id_job in metodos.sistema.envios:
+            envio = metodos.sistema.envios[id_job]
+            
+            tipo_producto = entry_4.get()
+            if tipo_producto:
+                envio.tipo_producto = tipo_producto
+            
+            destino = entry_5.get()
+            if destino:
+                envio.destino = destino
+            
+            temperatura = entry_7.get()
+            if temperatura:
+                envio.temperatura = temperatura
+            
+            hora_entrega = entry_8.get()
+            if hora_entrega:
+                envio.hora_entrega = datetime.datetime.strptime(hora_entrega, "%Y-%m-%d %H:%M")
+                
+            messagebox.showinfo(title=None, message="Datos de envio actualizados")
+        else:
+            messagebox.showwarning(title=None, message="Envio no encontrado")
+
+    #boton de subir cambios
     button_image_2 = PhotoImage(
         file=relative_to_assets("button_2.png"))
     button_2 = Button(
@@ -387,7 +410,7 @@ def logistica_modificar(frame1):
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("subir"),
+        command=lambda: sub_cambios(),
         relief="flat"
     )
     button_2.place(
@@ -396,6 +419,7 @@ def logistica_modificar(frame1):
         width=153.0,
         height=37.0
     )
+    
 
     #boton que cambia a pestaña de logistica editar estado
     button_image_3 = PhotoImage(
@@ -427,7 +451,7 @@ def logistica_modificar(frame1):
         relief="flat"
     )
     button_4.place(
-        x=13.0,
+        x=14.0,
         y=149.0,
         width=159.0,
         height=56.0

@@ -1,11 +1,11 @@
 
 
 
-import gui2, gui4,gui5
+import gui2, gui4,gui5, metodos
 from pathlib import Path
 
 
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
 
 def titulo(frame1):
     # Limpia el frame
@@ -104,7 +104,7 @@ def logistica_ver(frame1):
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        command=lambda: bus_pedido(),
         relief="flat"
     )
     button_1.place(
@@ -114,7 +114,22 @@ def logistica_ver(frame1):
         height=45.0
     )
 
-    #texto
+    #!buscar envio
+    def bus_pedido():
+        id_job = entry_1.get()
+        if id_job not in metodos.sistema.envios:
+            messagebox.showwarning(title=None, message=f"No se ha encontrado ningún envío con el {id_job}")
+        if id_job in metodos.sistema.envios:
+            envio = metodos.sistema.envios[id_job]
+            canvas.itemconfig(guia_text, text=envio.guia_aerea)
+            canvas.itemconfig(cliente_text, text=envio.cliente.nombre)
+            canvas.itemconfig(tipo_text, text=envio.tipo_producto)
+            canvas.itemconfig(dest_text, text=envio.destino)
+            canvas.itemconfig(est_text, text=envio.estado_actual.value)
+            canvas.itemconfig(temp_text, text=envio.temperatura)
+            canvas.itemconfig(hora_text, text=envio.hora_entrega)
+            canvas.itemconfig(ubi_text, text=envio.ubicacion_actual)
+            
     canvas.create_text(
         305.0,
         173.0,
@@ -135,13 +150,13 @@ def logistica_ver(frame1):
     )
 
     #texto
-    canvas.create_text(
+    guia_text=canvas.create_text(
         622.0,
         213.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -155,13 +170,13 @@ def logistica_ver(frame1):
     )
 
     #texto
-    canvas.create_text(
+    cliente_text = canvas.create_text(
         622.0,
         253.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -175,13 +190,13 @@ def logistica_ver(frame1):
     )
 
     #texto
-    canvas.create_text(
+    tipo_text = canvas.create_text(
         622.0,
         293.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -195,13 +210,13 @@ def logistica_ver(frame1):
     )
 
     #texto
-    canvas.create_text(
+    dest_text = canvas.create_text(
         622.0,
         335.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -215,13 +230,13 @@ def logistica_ver(frame1):
     )
 
     #texto
-    canvas.create_text(
+    est_text = canvas.create_text(
         622.0,
         376.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -235,13 +250,13 @@ def logistica_ver(frame1):
     )
 
     #texto
-    canvas.create_text(
+    temp_text = canvas.create_text(
         622.0,
         417.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -255,13 +270,13 @@ def logistica_ver(frame1):
     )
 
     #texto
-    canvas.create_text(
+    hora_text = canvas.create_text(
         622.0,
         456.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -275,13 +290,13 @@ def logistica_ver(frame1):
     )
 
     #texto
-    canvas.create_text(
+    ubi_text=canvas.create_text(
         622.0,
         506.0,
         anchor="nw",
         text="+++",
         fill="#000000",
-        font=("MicrosoftSansSerif", 20 * -1)
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #boton
@@ -314,7 +329,7 @@ def logistica_ver(frame1):
         relief="flat"
     )
     button_3.place(
-        x=13.0,
+        x=14.0,
         y=149.0,
         width=159.0,
         height=56.0

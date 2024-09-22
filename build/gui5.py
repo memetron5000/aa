@@ -1,11 +1,11 @@
 
 
 
-import gui2, gui3,gui4
+import gui2, gui3,gui4, metodos
 from pathlib import Path
 
 
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox, ttk
 
 def titulo(frame1):
     # Limpia el frame
@@ -13,7 +13,7 @@ def titulo(frame1):
         item.destroy()
 
 def logistica_edit_estado(frame1):
-    global button_image_1, button_image_2, button_image_3, button_image_4,button_image_5,image_image_1
+    global button_image_1, button_image_2, button_image_3, button_image_4,button_image_5, entry_image_1, entry_image_2, image_image_1
     
     #limpia el frame
     titulo(frame1)
@@ -60,18 +60,100 @@ def logistica_edit_estado(frame1):
         fill="#000000",
         font=("MicrosoftSansSerif", 32 * -1)
     )
+    
+    canvas.create_text(
+        300.0,
+        125.0,
+        anchor="nw",
+        text="ID del envio",
+        fill="#000000",
+        font=("MicrosoftSansSerif", 20 * -1)
+    )
+    #cuadro de texto
+    entry_image_1 = PhotoImage(
+        file=relative_to_assets("entry_1.png"))
+    entry_bg_1 = canvas.create_image(
+        677.0,
+        137.5,
+        image=entry_image_1
+    )
+    entry_1 = Entry(
+        frame1,
+        bd=0,
+        bg="#D9D9D9",
+        fg="#000716",
+        highlightthickness=0
+    )
+    entry_1.place(
+        x=610.0,
+        y=120.0,
+        width=134.0,
+        height=33.0
+    )
+    
+    #texto
+    canvas.create_text(
+        300.0,
+        177.0,
+        anchor="nw",
+        text="Ubicacion:",
+        fill="#000000",
+        font=("MicrosoftSansSerif", 20 * -1)
+    )
+    #cuadro de texto
+    entry_image_2 = PhotoImage(
+        file=relative_to_assets("entry_2.png"))
+    entry_bg_2 = canvas.create_image(
+        677.0,
+        187.5,
+        image=entry_image_2
+    )
+    entry_2 = Entry(
+        frame1,
+        bd=0,
+        bg="#D9D9D9",
+        fg="#000716",
+        highlightthickness=0
+    )
+    entry_2.place(
+        x=610.0,
+        y=170.0,
+        width=134.0,
+        height=33.0
+    )
 
     #texto
     canvas.create_text(
         285.0,
-        117.0,
+        257.0,
         anchor="nw",
         text="Elja el estado del envio:",
         fill="#000000",
         font=("MicrosoftSansSerif", 20 * -1)
     )
 
-    #boton
+    
+    #? combobox que 
+    combo = ttk.Combobox(frame1, state= "readonly",values=["EN_REPARTO_AEREO","VIAJANDO_A_TU_DESTINO","EN_CENTRO_LOGISTICO","EN_CAMINO_HACIA_TI","ENTREGADO","EN_RETRASO"])
+    combo.place(x=600.0, y=257.0)
+    width=50
+    
+    #!funcion que actualiza el estado del envio
+    def actualizar():
+        id_job=entry_1.get()
+        if id_job in metodos.sistema.envios:
+            pass
+        else:
+            messagebox.showinfo("Error", f"No se ha encontrado ningún envío con el ID {id_job}")
+            return
+        ubicacion=entry_2.get()
+        if (combo.get()=="" or entry_2.get()==""):
+            messagebox.showerror(title=None, message="Rellene todos los espacios", )
+        elif metodos.sistema.actualizar_estado_envio(id_job, metodos.EstadoEnvio[combo.get()], ubicacion):
+            messagebox.showinfo(title=None, message="Estado actualizado con éxito")
+        
+    
+    #boton cambiar estado
     button_image_1 = PhotoImage(
         file=relative_to_assets("button_1.png"))
     button_1 = Button(
@@ -79,12 +161,12 @@ def logistica_edit_estado(frame1):
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        command=lambda: actualizar(),
         relief="flat"
     )
     button_1.place(
         x=410.0,
-        y=181.0,
+        y=371.0,
         width=153.0,
         height=37.0
     )

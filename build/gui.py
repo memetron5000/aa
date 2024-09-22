@@ -1,4 +1,4 @@
-
+    
 import gui1,  gui6,    gui10,     gui13,       gui17     ,gui22      ,metodos
     #(Logis)(Gerente)(Quimico)(Transportista)(Cliente)(destinatario)
 
@@ -93,37 +93,76 @@ def login():
         fill="#727272",
         font=("MicrosoftSansSerif", 20 * -1)
     )
+    
+    
 
     #verifica la seleccion de opciones en ese instante del combobox para ocultar o mostrar el texto de disponibles mas el rol
     def update_available_text(event):
-        global user
+        global user, combo1
         selected_role = combo.get()
-        #si rol==destinatario oculta el cuadro de dispobibles y el cuadro de texto de identificador de cliente
+
+        # Si `combo1` ya existe, ocultarlo primero
+        try:
+            combo1.place_forget()  # Si usas 'place' para posicionar `combo1`
+        except NameError:
+            pass  # Si `combo1` aún no existe, no hacer nada
+
+        #! Si el rol es DESTINATARIO, oculta el texto de disponibles y el cuadro de identificador
         if selected_role in (metodos.Rol.DESTINATARIO.value,):
             canvas.itemconfig(available_text, state='hidden')
-            canvas.itemconfig(entry_bg_1, state='hidden')
-            entry_1.place_forget()
-        #si rol==cliente muestra el cuadro de dispobibles y el cuadro de texto de identificador de cliente
-        elif(selected_role in ( metodos.Rol.CLIENTE.value)):
-            canvas.itemconfig(available_text, state='normal', text="Ingrese ID")
-            entry_1.place(
-                x=564.0,
-                y=403.0,
-                width=134.0,
-                height=33.0
-            )
-            canvas.itemconfig(entry_bg_1, state='normal')
-        else:
-            #si no selecciona nada se queda en esa pestaña al hacer login
-            canvas.itemconfig(entry_bg_1, state='hidden')
-            entry_1.place_forget()
-            user=selected_role+" disponible"
-            canvas.itemconfig(available_text, state='normal',text=user)
+        
+        #! Si el rol es CLIENTE, muestra los campos pertinentes
+        elif selected_role in (metodos.Rol.CLIENTE.value):
+            canvas.itemconfig(available_text, state='hidden')
+            combo.pack_forget()
+            pass
+        
+        #! Si el rol es GERENTE_COMERCIAL
+        elif selected_role in (metodos.Rol.GERENTE_COMERCIAL.value):
+            user = selected_role + " disponible"
+            canvas.itemconfig(available_text, state='normal', text=user)
             
+            # Crear un ComboBox con los gerentes disponibles
+            gerentes = [usuario for usuario in metodos.sistema.usuarios.values() if usuario.rol == metodos.Rol.GERENTE_COMERCIAL]
+            ge = [gerente.nombre for gerente in gerentes]  # Lista de nombres de gerentes
+
+            combo1 = ttk.Combobox(state="readonly", values=ge)  # Crear combo1
+            combo1.place(x=452.0, y=390.0)
+
+        #! Si el rol es QUÍMICO
+        elif selected_role in (metodos.Rol.QUIMICO.value):
+            user = selected_role + " disponible"
+            canvas.itemconfig(available_text, state='normal', text=user)
+
+            # Crear un ComboBox con los químicos disponibles
+            quimicos = [usuario for usuario in metodos.sistema.usuarios.values() if usuario.rol == metodos.Rol.QUIMICO]
+            qui = [quimico.nombre for quimico in quimicos]
+
+            combo1 = ttk.Combobox(state="readonly", values=qui)  # Crear combo1
+            combo1.place(x=452.0, y=390.0)
+
+        #! Si el rol es CONDUCTOR
+        elif selected_role in (metodos.Rol.CONDUCTOR.value):
+            user = selected_role + " disponible"
+            canvas.itemconfig(available_text, state='normal', text=user)
+
+            # Crear un ComboBox con los conductores disponibles
+            conductores = [usuario for usuario in metodos.sistema.usuarios.values() if usuario.rol == metodos.Rol.CONDUCTOR]
+            co = [conductor.nombre for conductor in conductores]
+
+            combo1 = ttk.Combobox(state="readonly", values=co)  # Crear combo1
+            combo1.place(x=452.0, y=390.0)
+
+        else:
+            canvas.itemconfig(available_text, state='hidden')
+            pass
+        
+    
     #crea combobox con valores de usuarios
     combo = ttk.Combobox(state="readonly", values=[rol.value for rol in metodos.Rol])
     combo.place(x=52.0, y=390.0)
     combo.bind("<<ComboboxSelected>>", update_available_text)
+
 
     #obtiene valor de usuario de combobox 
     def seleccion():
@@ -143,28 +182,7 @@ def login():
         else:
             pass            
     
-    #entrada de texto de cliente
-    entry_image_1 = PhotoImage(
-        file=relative_to_assets("entry_1.png"))
-    entry_bg_1 = canvas.create_image(
-        631.0,
-        420.0,
-        state="hidden",
-        image=entry_image_1
-    )
-    entry_1 = Entry(
-        bd=0,
-        bg="#D9D9D9",
-        fg="#000716",
-        highlightthickness=0
-    )
-    entry_1.place(
-        x=564.0,
-        y=403.0,
-        width=134.0,
-        height=33.0
-    )
-    entry_1.place_forget()
+    
     
     
     #boton de login

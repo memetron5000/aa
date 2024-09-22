@@ -1,10 +1,10 @@
 
-
-import gui7, gui9
+import datetime
+import gui7, gui9, metodos
 from pathlib import Path
 
 
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
 
 # limpia el frame para poder actualizar la ventana
 def titulo(frame2):
@@ -14,7 +14,7 @@ def titulo(frame2):
         
 #creacion de todos los elementos de la ventana y acceso a ruta completa
 def gerente_crear_envio(frame2):
-    global button_image_1, button_image_2, button_image_3, button_image_4,entry_image_1,entry_image_2,entry_image_3,entry_image_4, entry_image_5, entry_image_6, entry_image_7, image_image_1
+    global button_image_1, button_image_2, button_image_3, button_image_4,entry_image_1,entry_image_2,entry_image_3,entry_image_4, entry_image_5, entry_image_6, entry_image_7,  entry_image_8, image_image_1
     
     # Limpia el frame
     titulo(frame2)
@@ -59,16 +59,6 @@ def gerente_crear_envio(frame2):
         text="BIENVENIDO",
         fill="#000000",
         font=("MicrosoftSansSerif", 32 * -1)
-    )
-
-    #texto
-    canvas.create_text(
-        219.0,
-        127.0,
-        anchor="nw",
-        text="Crear nuevo envío:",
-        fill="#000000",
-        font=("Inter", 20 * -1)
     )
 
     #texto
@@ -238,7 +228,7 @@ def gerente_crear_envio(frame2):
         239.0,
         421.0,
         anchor="nw",
-        text="Ingrese la hora de entrega:",
+        text="Ingrese la fecha y hora de entrega:",
         fill="#000000",
         font=("MicrosoftSansSerif", 20 * -1)
     )
@@ -283,20 +273,38 @@ def gerente_crear_envio(frame2):
         511.5,
         image=entry_image_7
     )#Cuadro que ingresa el ID del envio nuevo
-    entry_7 = Entry(
-        frame2,
-        bd=0,
-        bg="#D9D9D9",
-        fg="#000716",
-        highlightthickness=0
-    )
-    entry_7.place(
-        x=601.0,
-        y=499.0,
-        width=138.0,
-        height=23.0
-    )
 
+    #!funcion que registra pedido
+    def r_pedido():
+        identificador_cliente = entry_1.get()
+        if identificador_cliente in metodos.sistema.clientes:
+            cliente = metodos.sistema.clientes[identificador_cliente]
+            guia_aerea = entry_2.get()
+            tipo_producto = entry_3.get()
+            destino = entry_4.get()
+            temperatura = entry_5.get()
+            #hora_entrega = input("Ingrese la hora de entrega (YYYY-MM-DD HH:MM): ")
+            while True:
+                hora_entrega = entry_6.get()
+                try:
+                    hora_entrega = datetime.datetime.strptime(hora_entrega, "%Y-%m-%d %H:%M")
+                    break
+                except ValueError:
+                    messagebox.showerror(title=None, message="El formato de la fecha esta incorrecto\n debe ser (YYYY-MM-DD HH:MM)\n ejemplo 2004-11-27 12:21",)
+            
+            id_job = metodos.sistema.crear_envio(guia_aerea, cliente, tipo_producto, destino, temperatura, hora_entrega)
+            canvas.create_text(
+                670.0,
+                512.0,
+                anchor="center",
+                text=id_job,
+                fill="#000000",
+                font=("MicrosoftSansSerif", 20 * -1)
+                )
+            messagebox.showinfo(title=None, message="Pedido creado con exito")
+        else:
+            messagebox.showwarning(title=None, message="cliente no encontrado")
+    
     #boton
     button_image_1 = PhotoImage(
         file=relative_to_assets("button_1.png"))
@@ -305,7 +313,7 @@ def gerente_crear_envio(frame2):
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("Crear"),
+        command=lambda: r_pedido(),
         relief="flat"
     )#Boton para crear el pedido
     button_1.place(

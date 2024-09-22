@@ -297,7 +297,7 @@ def menu_logistica(sistema):
         elif opcion == "2":
             id_job = input("Ingrese el ID del envío a modificar: ")
             if id_job not in sistema.envios:
-                print (f'No se ha encontrado ningún envío con el {id_job}')
+                print (f'No se ha encontrado ningún envío con el ID {id_job}')
                 break
             if id_job in sistema.envios:
                 envio = sistema.envios[id_job]

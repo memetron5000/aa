@@ -1,10 +1,10 @@
 
 
-import gui8, gui9
+import gui8, gui9, metodos
 from pathlib import Path
 
 
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
 
 # limpia el frame para poder actualizar la ventana
 def titulo(frame2):
@@ -127,6 +127,25 @@ def gerente_registrar(frame2):
         height=29.0
     )
 
+    #!registrar cliente
+    def re_cli():
+        try:
+            id=int(entry_2.get())
+            if entry_1.get() == "" or id == None:
+                messagebox.showwarning(title=None, message="rellene todos los campos correctamente \n nombre= solo letras \n id= solo numeros")
+            else:
+                nombre=entry_1.get()
+                identificador=entry_2.get()
+                if identificador not in metodos.sistema.clientes:
+                    nuevo_cliente = metodos.Cliente(nombre, identificador)
+                    metodos.sistema.agregar_usuario(nuevo_cliente)
+                    messagebox.showinfo(title=None, message=(f"nuevo usuario agregado= {nombre}     {identificador}"))
+                else: 
+                    messagebox.showinfo(title=None, message="el cliente ya se encuentra registrado")
+        except ValueError:
+            messagebox.showerror(title=None, message="el id debe ser un valor entero")
+            
+        
     #boton
     button_image_1 = PhotoImage(
         file=relative_to_assets("button_1.png"))
@@ -135,7 +154,7 @@ def gerente_registrar(frame2):
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("crear"),
+        command=lambda: re_cli(),
         relief="flat"
     )#boton de crear nuevo cliente
     button_1.place(
