@@ -208,7 +208,7 @@ def logistica_asignar_empleado(frame1):
         image=button_image_5,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("ya estas aqui"),
+        command=lambda: print("ya estás aquí"),
         relief="flat"
     )
     button_5.place(

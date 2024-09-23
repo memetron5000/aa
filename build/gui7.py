@@ -139,11 +139,11 @@ def gerente_registrar(frame2):
                 if identificador not in metodos.sistema.clientes:
                     nuevo_cliente = metodos.Cliente(nombre, identificador)
                     metodos.sistema.agregar_usuario(nuevo_cliente)
-                    messagebox.showinfo(title=None, message=(f"nuevo usuario agregado= {nombre}     {identificador}"))
+                    messagebox.showinfo(title=None, message=(f"Nuevo cliente agregado con nombre: {nombre} e identificador JOB: {identificador}"))
                 else: 
-                    messagebox.showinfo(title=None, message="el cliente ya se encuentra registrado")
+                    messagebox.showinfo(title=None, message="El cliente ya se encuentra registrado")
         except ValueError:
-            messagebox.showerror(title=None, message="el id debe ser un valor entero")
+            messagebox.showerror(title=None, message="El id debe ser un valor entero")
             
         
     #boton

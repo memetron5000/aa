@@ -98,7 +98,7 @@ def gerente_crear_envio(frame2):
         239.0,
         262.0,
         anchor="nw",
-        text="Ingrese el número de guia aerea:",
+        text="Ingrese el número de guia aerea:\n (SI ES SU CASO)",
         fill="#000000",
         font=("MicrosoftSansSerif", 20 * -1)
     )
@@ -228,7 +228,7 @@ def gerente_crear_envio(frame2):
         239.0,
         421.0,
         anchor="nw",
-        text="Ingrese la fecha y hora de entrega:",
+        text="Ingrese la fecha y hora de entrega:\n (YYYY-MM-DD HH:MM)",
         fill="#000000",
         font=("MicrosoftSansSerif", 20 * -1)
     )

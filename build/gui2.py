@@ -398,9 +398,9 @@ def logistica_modificar(frame1):
             if hora_entrega:
                 envio.hora_entrega = datetime.datetime.strptime(hora_entrega, "%Y-%m-%d %H:%M")
                 
-            messagebox.showinfo(title=None, message="Datos de envio actualizados")
+            messagebox.showinfo(title=None, message="Datos de envío actualizados")
         else:
-            messagebox.showwarning(title=None, message="Envio no encontrado")
+            messagebox.showwarning(title=None, message="Envío no encontrado")
 
     #boton de subir cambios
     button_image_2 = PhotoImage(

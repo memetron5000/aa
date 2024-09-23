@@ -344,7 +344,7 @@ def gerente_ver_envio(frame2):
         image=button_image_4,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("ya estas aca"),
+        command=lambda: print("ya estás acá"),
         relief="flat"
     )#boton de la funcionalidad que se esta presentando en la ventana
     button_4.place(
