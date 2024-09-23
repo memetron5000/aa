@@ -286,23 +286,20 @@ def gerente_crear_envio(frame2):
     def r_pedido():
         identificador_cliente = entry_1.get()
         if identificador_cliente in metodos.sistema.clientes:
-            cliente = metodos.sistema.clientes[identificador_cliente]
-            guia_aerea = entry_2.get()
-            tipo_producto = entry_3.get()
-            destino = entry_4.get()
-            temperatura = entry_5.get()
-            #hora_entrega = input("Ingrese la hora de entrega (YYYY-MM-DD HH:MM): ")
-            while True:
+            try:
+                cliente = metodos.sistema.clientes[identificador_cliente]
+                guia_aerea = entry_2.get()
+                tipo_producto = entry_3.get()
+                destino = entry_4.get()
+                temperatura = entry_5.get()
+                #hora_entrega = input("Ingrese la hora de entrega (YYYY-MM-DD HH:MM): ")
                 hora_entrega = entry_6.get()
-                try:
-                    hora_entrega = datetime.datetime.strptime(hora_entrega, "%Y-%m-%d %H:%M")
-                    break
-                except ValueError:
-                    messagebox.showerror(title=None, message="El formato de la fecha esta incorrecto\n debe ser (YYYY-MM-DD HH:MM)\n ejemplo 2004-11-27 12:21",)
-            
-            id_job = metodos.sistema.crear_envio(guia_aerea, cliente, tipo_producto, destino, temperatura, hora_entrega)
-            canvas.itemconfig(en, text=id_job)
-            messagebox.showinfo(title=None, message="Pedido creado con exito")
+                hora_entrega = datetime.datetime.strptime(hora_entrega, "%Y-%m-%d %H:%M")
+                id_job = metodos.sistema.crear_envio(guia_aerea, cliente, tipo_producto, destino, temperatura, hora_entrega)
+                canvas.itemconfig(en, text=id_job)
+                messagebox.showinfo(title=None, message="Pedido creado con exito")
+            except ValueError:
+                messagebox.showerror(title=None, message="El formato de la fecha esta incorrecto\n debe ser (YYYY-MM-DD HH:MM)\n ejemplo 2004-11-27 12:21",)
         else:
             messagebox.showwarning(title=None, message="cliente no encontrado")
     
