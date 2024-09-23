@@ -128,7 +128,7 @@ def logistica_modificar(frame1):
             entry_5.insert(0, envio.destino)
             canvas.itemconfig(estado, text=envio.estado_actual.value)
             entry_7.insert(0, envio.temperatura)
-            entry_8.insert(0, envio.hora_entrega)
+            canvas.itemconfig(hora_text, text=envio.hora_entrega)
             entry_9.insert(0, envio.ubicacion_actual)
 
     #texto
@@ -320,26 +320,14 @@ def logistica_modificar(frame1):
         font=("MicrosoftSansSerif", 20 * -1)
     )
 
-    #cuadro de texto rellenable
-    entry_image_8 = PhotoImage(
-        file=relative_to_assets("entry_8.png"))
-    entry_bg_8 = canvas.create_image(
-        626.0,
-        467.5,
-        image=entry_image_8
-    )
-    entry_8 = Entry(
-        frame1,
-        bd=0,
-        bg="#D9D9D9",
-        fg="#000716",
-        highlightthickness=0
-    )
-    entry_8.place(
-        x=510.0,
-        y=455.0,
-        width=232.0,
-        height=23.0
+    
+    hora_text=canvas.create_text(
+        630.0,
+        470.0,
+        anchor="center",
+        text="",
+        fill="#000000",
+        font=("MicrosoftSansSerif", 13 * -1)
     )
 
     #texto
@@ -382,6 +370,10 @@ def logistica_modificar(frame1):
         if id_job in metodos.sistema.envios:
             envio = metodos.sistema.envios[id_job]
             
+            guia_aerea= entry_2.get()
+            if guia_aerea:
+                envio.guia_aerea = guia_aerea
+            
             tipo_producto = entry_4.get()
             if tipo_producto:
                 envio.tipo_producto = tipo_producto
@@ -394,11 +386,11 @@ def logistica_modificar(frame1):
             if temperatura:
                 envio.temperatura = temperatura
             
-            hora_entrega = entry_8.get()
-            if hora_entrega:
-                envio.hora_entrega = datetime.datetime.strptime(hora_entrega, "%Y-%m-%d %H:%M")
-                
-            messagebox.showinfo(title=None, message="Datos de envío actualizados")
+            ubicacion_actual = entry_9.get()
+            if ubicacion_actual:
+                envio.ubicacion_actual = ubicacion_actual
+            
+            messagebox.showinfo(title=None, message="Datos de envio actualizados")
         else:
             messagebox.showwarning(title=None, message="Envío no encontrado")
 
