@@ -60,7 +60,7 @@ def cliente_ver_pedido(frame5):
         400.0,
         24.0,
         anchor="nw",
-        text="BIENVENIDO",
+        text="Ver mis pedidos",
         fill="#000000",
         font=("MicrosoftSansSerif", 32 * -1)
     )
