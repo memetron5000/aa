@@ -58,7 +58,7 @@ def gerente_registrar(frame2):
         400.0,
         24.0,
         anchor="nw",
-        text="BIENVENIDO",
+        text="Registrar nuevo cliente",
         fill="#000000",
         font=("MicrosoftSansSerif", 32 * -1)
     )
@@ -139,7 +139,7 @@ def gerente_registrar(frame2):
                 if identificador not in metodos.sistema.clientes:
                     nuevo_cliente = metodos.Cliente(nombre, identificador)
                     metodos.sistema.agregar_usuario(nuevo_cliente)
-                    messagebox.showinfo(title=None, message=(f"Nuevo cliente agregado con nombre: {nombre} e identificador JOB: {identificador}"))
+                    messagebox.showinfo(title=None, message=(f"Nuevo cliente agregado con nombre: {nombre} e identificador: {identificador}"))
                 else: 
                     messagebox.showinfo(title=None, message="El cliente ya se encuentra registrado")
         except ValueError:
