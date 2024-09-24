@@ -61,7 +61,7 @@ def cliente_ver_estado(frame5):
         400.0,
         24.0,
         anchor="nw",
-        text="BIENVENIDO",
+        text="Ver estado del pedido",
         fill="#000000",
         font=("MicrosoftSansSerif", 32 * -1)
     )
