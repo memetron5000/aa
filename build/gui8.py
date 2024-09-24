@@ -56,7 +56,7 @@ def gerente_crear_envio(frame2):
         400.0,
         24.0,
         anchor="nw",
-        text="BIENVENIDO",
+        text="Crear nuevo envío",
         fill="#000000",
         font=("MicrosoftSansSerif", 32 * -1)
     )
@@ -98,7 +98,7 @@ def gerente_crear_envio(frame2):
         239.0,
         262.0,
         anchor="nw",
-        text="Ingrese el número de guia aerea:\n (SI ES SU CASO)",
+        text="Ingrese el número de guia aérea :\n (si es su caso) \n",
         fill="#000000",
         font=("MicrosoftSansSerif", 20 * -1)
     )
