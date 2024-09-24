@@ -58,7 +58,7 @@ def logistica_asignar_empleado(frame1):
         400.0,
         24.0,
         anchor="nw",
-        text="BIENVENIDO",
+        text="Asignar empleado",
         fill="#000000",
         font=("MicrosoftSansSerif", 32 * -1)
     )
