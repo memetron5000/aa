@@ -59,7 +59,7 @@ def conductor_reportar_accidente(frame4):
         400.0,
         24.0,
         anchor="nw",
-        text="BIENVENIDO",
+        text="Reportar accidente",
         fill="#000000",
         font=("MicrosoftSansSerif", 32 * -1)
     )
