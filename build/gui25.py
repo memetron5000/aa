@@ -63,7 +63,7 @@ def destinatario_ver_historial(frame6):
         400.0,
         24.0,
         anchor="nw",
-        text="BIENVENIDO",
+        text="Ver historial del pedido",
         fill="#000000",
         font=("MicrosoftSansSerif", 32 * -1)
     )
