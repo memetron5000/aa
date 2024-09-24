@@ -58,7 +58,7 @@ def logistica_modificar(frame1):
         400.0,
         24.0,
         anchor="nw",
-        text="BIENVENIDO",
+        text="Modificar datos de envío",
         fill="#000000",
         font=("MicrosoftSansSerif", 32 * -1)
     )
@@ -136,7 +136,7 @@ def logistica_modificar(frame1):
         305.0,
         175.0,
         anchor="nw",
-        text="Datos actuales del envío:",
+        text="Datos actuales del envío (modifique si es su caso):",
         fill="#000000",
         font=("MicrosoftSansSerif", 20 * -1)
     )
