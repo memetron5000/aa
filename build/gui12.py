@@ -58,7 +58,7 @@ def quimico_edit_estado(frame3):
         400.0,
         24.0,
         anchor="nw",
-        text="BIENVENIDO",
+        text="Editar estado del envío",
         fill="#000000",
         font=("MicrosoftSansSerif", 32 * -1)
     )
